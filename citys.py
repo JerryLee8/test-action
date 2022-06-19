@@ -37,9 +37,12 @@ driver.get("https://www.accuweather.com/")
 wait = WebDriverWait(driver, 5)  # 等待10秒
 
 citys = ["臺北市","新北市","桃園市","臺中市","臺南市","高雄市","基隆市","新竹市","嘉義市","宜蘭縣","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","花蓮縣","臺東縣","澎湖縣"]
+citysEN = ["Taipei City", "New Taipei City", "Taoyuan City", "Taichung City", "Tainan City", "Kaohsiung City", "Keelung City", "Hsinchu City", "Chiayi City", "Yilan County" ,"Hsinchu County","Miaoli County","Changhua County","Nantou County","Yunlin County","Chiayi County","Pingtung County","Hualien County","Taitung County"," Penghu County"]
 data = []
+i = 0
 for city in citys:
-    print(city)
+
+    print(citysEN[i])
     # 搜尋欄
 
     # <input name="query" class="search-input" type="text" placeholder="搜尋" autocomplete="off">
@@ -64,11 +67,11 @@ for city in citys:
         text = city + ", " + city + ", TW"
         elem = driver.find_element(by=By.LINK_TEXT, value=text)
         elem.click()
-        print("需選擇")
+        print("need to serch")
         # 等待搜尋結果
         time.sleep(2)  # 等1sec
     except:
-        print("不需選擇")
+        print("not need to search")
 
     try:
         # 關掉廣告
@@ -76,25 +79,25 @@ for city in citys:
         action.move_to_element_with_offset(elem, 0, 0)
         action.click()
         action.perform()
-        print("有廣告")
+        print("have ad")
         # 等待搜尋結果
         time.sleep(2)  # 等1sec
     except:
-        print("沒有廣告")
+        print("not have ad")
 
     # 每小時按鈕
     try:
         # <a class="subnav-item " href="/zh/tw/taichung-city/315040/hourly-weather-forecast/315040" data-qa="hourly" data-gaid="hourly">
         elem = driver.find_element(by=By.LINK_TEXT, value="每小時")
         elem.click()
-        print("未選擇每小時")
+        print("not click hourly")
 
         # 等待網頁載入
         time.sleep(2)  # 1sec
     except:
         elem = driver.find_element(by=By.CSS_SELECTOR, value=".subnav-item.active")
         # elem.click()
-        print("已選擇每小時")
+        print("click hourly")
 
 
     ## BS4 爬蟲
@@ -137,7 +140,7 @@ for city in citys:
         soup10 = soup1[0].select('.panel')[2].select('.value')[3].string
         # 空氣品質
         soup11 = soup1[0].select('.panel')[2].select('.value')[4].string
-        print("有紫外線指數")
+        print("have UV")
     except:
         # 紫外線指數
         soup7 = []
@@ -149,7 +152,7 @@ for city in citys:
         soup10 = soup1[0].select('.panel')[2].select('.value')[2].string
         # 空氣品質
         soup11 = soup1[0].select('.panel')[2].select('.value')[3].string
-        print("沒有紫外線指數")
+        print("not have UV")
     # 露點
     soup12 = soup1[0].select('.panel')[3].select('.value')[0].string
     # 雲量
@@ -187,14 +190,14 @@ try:
         for row in data:
             CSVData1.writerow(row)  # 寫入 資料
 
-    print("有歷史資料")
+    print("have data")
 except:
     with open(fileName, 'w', newline='', encoding="utf-8") as fout:  # 打開 write .csv 檔案，準備寫入
         CSVData1 = csv.writer(fout, delimiter=',')
         # 寫入 欄位名稱
         header = dataTitle
         CSVData1.writerow(header)
-        print(header)
+        #print(header)
         for row in data:
             CSVData1.writerow(row)  # 寫入 資料
-    print("沒有歷史資料")
+    print("not have data")
