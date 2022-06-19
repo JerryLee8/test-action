@@ -42,8 +42,7 @@ jobs:
       
       # 裝python 需要函式庫
       - name: Install dependencies
-        run: |
-          if [ -f pythonRequirements.txt ]; then pip install - r pythonRequirements.txt
+        run: if [ -f pythonRequirements.txt ]; then pip install - r pythonRequirements.txt
 
       # Runs a single command using the runners shell
       - name: Run Python 
