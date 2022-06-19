@@ -37,9 +37,14 @@ jobs:
       # python 環境
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.9.9' 
+          python-version: '3.x' 
           architecture: 'x64'
 
+      # 裝python 需要函式庫
+      - name: Install dependencies
+        run:  pip install beautifulsoup4
+          pip install selenium
+          
       # Runs a single command using the runners shell
       - name: Run Python 
         run: python citys.py
