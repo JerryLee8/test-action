@@ -47,5 +47,5 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Python 
-        run: python test(多城市).py
+        run: python test(citys).py
 
