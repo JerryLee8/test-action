@@ -41,7 +41,7 @@ str1=driver.page_source
 soup=BeautifulSoup(str1, "html.parser")
 soup1 = soup.select('.result-container')
 soup2 = soup1[0].select('.search-result')
-print(soup2)
+#print(soup2)
 
 elem = driver.find_element(by=By.LINK_TEXT, value=soup2[0].string)
 elem.click()
