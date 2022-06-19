@@ -44,9 +44,6 @@ jobs:
       - name: Install dependencies
         run:  pip install beautifulsoup4
           pip install selenium
-          pip install time
-          pip install os
-          pip install csv
 
       # Runs a single command using the runners shell
       - name: Run Python 
