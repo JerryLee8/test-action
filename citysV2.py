@@ -36,7 +36,14 @@ driver.get("https://www.accuweather.com/zh/browse-locations/asi/tw")
 
 wait = WebDriverWait(driver, 5)  # 等待10秒
 
-elem = driver.find_element(by=By.LINK_TEXT, value="南投縣")
+## BS4 爬蟲
+str1=driver.page_source
+soup=BeautifulSoup(str1, "html.parser")
+soup1 = soup.select('.result-container')
+soup2 = soup1[0].select('.search-result')
+print(soup2)
+
+elem = driver.find_element(by=By.LINK_TEXT, value=soup2[0].string)
 elem.click()
 time.sleep(2)  # 等1sec
 try:
