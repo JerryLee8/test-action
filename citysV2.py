@@ -36,12 +36,27 @@ driver.get("https://www.accuweather.com/zh/browse-locations/asi/tw")
 
 wait = WebDriverWait(driver, 5)  # 等待10秒
 
+elem = driver.find_element(by=By.LINK_TEXT, value="南投縣")
+elem.click()
+time.sleep(1)  # 等1sec
+try:
+    # 關掉廣告
+    action = webdriver.common.action_chains.ActionChains(driver)
+    action.move_to_element_with_offset(elem, 0, 0)
+    action.click()
+    action.perform()
+    print("have ad")
+    # 等待搜尋結果
+    time.sleep(2)  # 等1sec
+except:
+    print("not have ad")
+
 ## BS4 爬蟲
 str1=driver.page_source
 soup=BeautifulSoup(str1, "html.parser")
 soup1 = soup.select('.result-container')
 soup2 = soup1[0].select('.search-result')
-if soup2[0].string == "南投縣":
+if soup2[0].string == "三和里":
     print("yes")
 else:
     print("no")
