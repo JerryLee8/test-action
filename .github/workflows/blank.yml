@@ -34,18 +34,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # github預設指令
       - uses: actions/checkout@v3
+      # python 環境
       - uses: actions/setup-python@v2
         with:
           python-version: '3.9.9' 
           architecture: 'x64'
       
+      # 裝python 需要函式庫
+      - name: Install dependencies
+        run: |
+          if [ -f pythonRequirements.txt ]; then pip install - r pythonRequirements.txt
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Run Python 
+        run: python test(多城市).py
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
